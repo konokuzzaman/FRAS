@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h2 class="mb-1">Student directory</h2>
+    <p class="text-muted mb-0">Manage enrollment-ready student profiles.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-modern secondary" href="{{ url_for('refresh_faces') }}">Refresh face cache</a>
+    <a class="btn btn-modern primary" href="{{ url_for('student_add') }}">Add student</a>
+  </div>
+</div>
+<div class="data-card">
+  <table class="data-table align-middle">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Roll</th>
+        <th>Department</th>
+        <th>Batch</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in students %}
+        <tr>
+          <td>
+            <div class="student-row">
+              <div class="student-photo text-uppercase fw-bold">
+                {% if s.photo_path %}
+                  <img src="{{ url_for('static', filename=s.photo_path) }}" alt="{{ s.name }}">
+                {% else %}
+                  {{ s.name[0] }}
+                {% endif %}
+              </div>
+              <div>
+                <strong>{{ s.name }}</strong>
+                <div class="text-muted small">ID: {{ s.student_id }}</div>
+              </div>
+            </div>
+          </td>
+          <td>{{ s.roll }}</td>
+          <td>{{ s.department_name or '—' }}</td>
+          <td>{{ s.batch or '—' }}</td>
+          <td class="text-end">
+            <a class="btn btn-sm btn-outline-light me-2" href="{{ url_for('student_edit', sid=s.student_id) }}">Edit</a>
+            <a class="btn btn-sm btn-outline-warning me-2" href="{{ url_for('capture', sid=s.student_id) }}">Capture face</a>
+            <form class="d-inline" method="post" action="{{ url_for('student_delete', sid=s.student_id) }}" onsubmit="return confirm('Remove this student?');">
+              <button class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No students yet. Start by adding a profile.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

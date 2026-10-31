@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+
+# Secrets (never upload)
+.env
+credentials.json
+token.json
+
+# Uploaded student photos and captured faces
+static/uploads/students/*
+!static/uploads/students/.gitkeep
+faces/
+unknowns/
+
+# Third-party dlib installer files
+face_recog_dlib_file/
+
+# IDE / OS files
+.idea/
+.DS_Store

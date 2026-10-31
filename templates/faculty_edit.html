@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Update faculty</h3>
+  <form method="post" enctype="multipart/form-data" class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label">Faculty code</label>
+      <input class="form-control" name="faculty_code" value="{{ faculty.faculty_code }}" required>
+    </div>
+    <div class="col-md-8">
+      <label class="form-label">Full name</label>
+      <input class="form-control" name="full_name" value="{{ faculty.full_name }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" name="email" value="{{ faculty.email }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Phone</label>
+      <input class="form-control" name="phone" value="{{ faculty.phone }}">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Department</label>
+      <select name="department_id" class="form-select">
+        <option value="">Assign department</option>
+        {% for dept in departments %}
+          <option value="{{ dept.department_id }}" {% if faculty.department_id == dept.department_id %}selected{% endif %}>
+            {{ dept.code }} · {{ dept.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Reset password</label>
+      <input type="text" class="form-control" name="password" placeholder="Leave blank to keep existing">
+    </div>
+    <div class="col-12">
+      <label class="form-label">Avatar</label>
+      <input type="file" name="avatar" accept="image/*" class="form-control">
+      {% if faculty.avatar_path %}
+        <small class="text-muted d-block mt-1">Current avatar: {{ faculty.avatar_path }}</small>
+      {% endif %}
+    </div>
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save faculty</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+

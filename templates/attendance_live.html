@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4 align-items-stretch">
+  <div class="col-lg-7">
+    <div class="data-card h-100">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+          <h3 class="mb-1">Smart attendance studio</h3>
+          <p class="text-muted mb-0">Detect faces with automatic recognition overlays.</p>
+        </div>
+        <select id="section-select" class="form-select w-auto" {% if not sections %}disabled{% endif %}>
+          <option value="">Select section</option>
+          {% for sec in sections %}
+            <option value="{{ sec.section_id }}">{{ sec.course_code }} · {{ sec.section_no }} · {{ sec.semester }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% if not sections %}
+        <div class="app-alert app-alert-warning mt-3">No sections available. Please contact an administrator.</div>
+      {% endif %}
+      <div class="video-wrapper mt-3">
+        <video id="live-video" autoplay playsinline muted></video>
+        <canvas id="video-overlay" class="video-overlay"></canvas>
+      </div>
+      <div class="d-flex flex-wrap align-items-center gap-3 mt-3">
+        <button id="start-session" class="btn btn-modern primary" {% if not sections %}disabled{% endif %}>Start session</button>
+        <button id="stop-session" class="btn btn-modern secondary" disabled>Stop</button>
+        <span id="live-status" class="text-muted">Pick a section to begin.</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="manual-panel h-100">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4 class="mb-0">Manual override</h4>
+        <span class="pill warning">Backup</span>
+      </div>
+      <p class="text-muted">Use when a face cannot be recognized or to adjust attendance.</p>
+      <form method="post" action="{{ url_for('manual_attendance') }}" id="manual-form" class="mt-3">
+        <input type="hidden" name="session_id" id="manual-session-id">
+        <div class="mb-3">
+          <label class="form-label">Section</label>
+          <select class="form-select" name="section_id" id="manual-section" required>
+            <option value="">Select section</option>
+            {% for sec in sections %}
+              <option value="{{ sec.section_id }}">{{ sec.course_code }} · {{ sec.section_no }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Student</label>
+          <select class="form-select" name="student_id" id="manual-student" required>
+            <option value="">Select section first</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select class="form-select" name="status">
+            <option value="present">Present</option>
+            <option value="absent">Absent</option>
+            <option value="late">Late</option>
+            <option value="excused">Excused</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Note</label>
+          <textarea class="form-control" name="note" rows="2" placeholder="Optional remarks"></textarea>
+        </div>
+        <button class="btn btn-modern primary w-100">Save manual attendance</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

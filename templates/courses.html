@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h2 class="mb-1">Courses</h2>
+    <p class="text-muted mb-0">Academic catalogue with department alignment.</p>
+  </div>
+  <a class="btn btn-modern primary" href="{{ url_for('course_add') }}">Add course</a>
+</div>
+<div class="data-card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Credit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+        <tr>
+          <td>{{ course.course_code }}</td>
+          <td>{{ course.course_name }}</td>
+          <td>{{ course.department_name or '—' }}</td>
+          <td>{{ course.credit }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4" class="text-center text-muted py-4">No courses yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

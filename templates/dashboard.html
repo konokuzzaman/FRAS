@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="mb-4">
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p class="label">Students</p>
+      <p class="value">{{ stats.students }}</p>
+      <p class="text-muted small">Active registrations</p>
+    </div>
+    <div class="stat-card">
+      <p class="label">Faculty</p>
+      <p class="value">{{ stats.faculty }}</p>
+      <p class="text-muted small">Teaching team</p>
+    </div>
+    <div class="stat-card">
+      <p class="label">Courses & Sections</p>
+      <p class="value">{{ stats.courses }}/{{ stats.sections }}</p>
+      <p class="text-muted small">Learning units</p>
+    </div>
+    <div class="stat-card">
+      <p class="label">Sessions today</p>
+      <p class="value">{{ stats.today_sessions }}</p>
+      <p class="text-muted small">Smart attendance windows</p>
+    </div>
+  </div>
+</section>
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="data-card">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h3>Live sections</h3>
+          <p class="text-muted mb-0">Keep an eye on every classroom stream.</p>
+        </div>
+        <a class="btn btn-modern secondary" href="{{ url_for('live_attendance') }}">Launch live attendance</a>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Faculty</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sec in sections %}
+            <tr>
+              <td>{{ sec.course_code }} · {{ sec.course_name }}</td>
+              <td>{{ sec.section_no }}</td>
+              <td>{{ sec.semester }} {{ sec.academic_year }}</td>
+              <td>{{ sec.faculty_name }}</td>
+            </tr>
+          {% else %}
+            <tr><td colspan="4" class="text-center text-muted py-4">No sections configured yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="data-card">
+      <h3>Administrative quick actions</h3>
+      <div class="d-grid gap-3">
+        <a class="btn btn-modern primary w-100" href="{{ url_for('student_add') }}">Register new student</a>
+        <a class="btn btn-modern primary w-100" href="{{ url_for('faculty_add') }}">Onboard faculty</a>
+        <a class="btn btn-modern secondary w-100" href="{{ url_for('course_add') }}">Create course</a>
+        <a class="btn btn-modern secondary w-100" href="{{ url_for('section_add') }}">Build section</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

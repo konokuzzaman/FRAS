@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Enroll student</h3>
+  <form method="post" class="row g-4">
+    <div class="col-md-6">
+      <label class="form-label">Student</label>
+      <select name="student_id" class="form-select" required>
+        {% for s in students %}
+          <option value="{{ s.student_id }}">{{ s.name }} · {{ s.roll }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Section</label>
+      <select name="section_id" class="form-select" required>
+        {% for sec in sections %}
+          <option value="{{ sec.section_id }}">{{ sec.course_code }} · {{ sec.section_no }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save enrollment</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

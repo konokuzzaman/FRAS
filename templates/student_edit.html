@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Update student</h3>
+  <form method="post" enctype="multipart/form-data" class="row g-4">
+    <div class="col-md-6">
+      <label class="form-label">Roll</label>
+      <input name="roll" class="form-control" value="{{ student.roll }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Name</label>
+      <input name="name" class="form-control" value="{{ student.name }}" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Department</label>
+      <select name="department_id" class="form-select">
+        <option value="">Select department</option>
+        {% for dept in departments %}
+          <option value="{{ dept.department_id }}" {% if student.department_id == dept.department_id %}selected{% endif %}>
+            {{ dept.code }} · {{ dept.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Batch</label>
+      <input name="batch" class="form-control" value="{{ student.batch }}">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Phone</label>
+      <input name="phone" class="form-control" value="{{ student.phone }}">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" value="{{ student.email }}">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Profile image</label>
+      <input type="file" name="photo" accept="image/*" class="form-control">
+      <small class="text-muted">Leave empty to keep the current photo.</small>
+    </div>
+    {% if student.photo_path %}
+    <div class="col-12">
+      <p class="text-muted mb-1">Current photo</p>
+      <div class="student-photo" style="width:80px;height:80px;">
+        <img src="{{ url_for('static', filename=student.photo_path) }}" alt="{{ student.name }}">
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save changes</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

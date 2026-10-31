@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Create section</h3>
+  <form method="post" class="row g-4">
+    <div class="col-md-6">
+      <label class="form-label">Course</label>
+      <select name="course_id" class="form-select" required>
+        <option value="">Select course</option>
+        {% for c in courses %}
+          <option value="{{ c.course_id }}">{{ c.course_code }} · {{ c.course_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Section no.</label>
+      <input name="section_no" class="form-control" required placeholder="A">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Academic year</label>
+      <input name="academic_year" class="form-control" placeholder="2024-25">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Semester</label>
+      <input name="semester" class="form-control" placeholder="Spring">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Assign faculty</label>
+      <select class="form-select" name="faculty_id">
+        <option value="">Select faculty</option>
+        {% for f in faculties %}
+          <option value="{{ f.faculty_id }}">{{ f.full_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-12">
+      <label class="form-label">Schedule</label>
+      <input class="form-control" name="schedule_info" placeholder="Tue & Thu · 10:00 - 11:30 · Lab 03">
+    </div>
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save section</button>
+      <a class="btn btn-modern secondary ms-2" href="{{ url_for('sections') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

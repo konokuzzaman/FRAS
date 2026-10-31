@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="login-layout">
+  <div class="card-hero">
+    <p class="text-uppercase text-muted fw-semibold mb-2">Face Recognition Attendance</p>
+    <h1 class="display-5 fw-semibold mb-3">Supervise every classroom with confidence.</h1>
+    <p class="text-white-50 mb-4">Administrators orchestrate departments, courses, and enrollments while faculty members capture live attendance through AI-powered recognition or manual overrides.</p>
+    <ul class="text-white-50">
+      <li>Modern dual-login portal</li>
+      <li>On-device face recognition with overlays</li>
+      <li>Manual rescue flow and audit trail</li>
+    </ul>
+  </div>
+  <div class="login-card">
+    <p class="text-muted text-uppercase small mb-2">Admin console</p>
+    <h3 class="mb-4">Administrator Login</h3>
+    <form method="post" class="needs-validation" novalidate>
+      <input type="hidden" name="role" value="admin">
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input class="form-control" name="username" required placeholder="admin">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" required placeholder="••••••••">
+      </div>
+      <button class="btn btn-modern primary w-100">Enter Admin Workspace</button>
+    </form>
+  </div>
+  <div class="login-card">
+    <p class="text-muted text-uppercase small mb-2">Faculty attendance</p>
+    <h3 class="mb-4">Faculty Login</h3>
+    <form method="post" class="needs-validation" novalidate>
+      <input type="hidden" name="role" value="faculty">
+      <div class="mb-3">
+        <label class="form-label">Faculty Code</label>
+        <input class="form-control" name="username" required placeholder="e.g. FAC0012">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" required placeholder="••••••••">
+      </div>
+      <button class="btn btn-modern secondary w-100">Access Faculty Hub</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

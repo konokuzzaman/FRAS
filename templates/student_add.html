@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Register student</h3>
+  <form method="post" enctype="multipart/form-data" class="row g-4">
+    <div class="col-md-6">
+      <label class="form-label">Roll</label>
+      <input name="roll" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Name</label>
+      <input name="name" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Department</label>
+      <select name="department_id" class="form-select">
+        <option value="">Select department</option>
+        {% for dept in departments %}
+          <option value="{{ dept.department_id }}">{{ dept.code }} · {{ dept.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Batch</label>
+      <input name="batch" class="form-control">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Phone</label>
+      <input name="phone" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Profile image</label>
+      <input type="file" name="photo" accept="image/*" class="form-control">
+      <small class="text-muted">Upload a clear portrait to display across the app.</small>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save student</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

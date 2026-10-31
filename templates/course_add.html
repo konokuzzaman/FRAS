@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Create course</h3>
+  <form method="post" class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label">Course code</label>
+      <input class="form-control" name="course_code" required placeholder="CSE101">
+    </div>
+    <div class="col-md-8">
+      <label class="form-label">Course name</label>
+      <input class="form-control" name="course_name" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Department</label>
+      <select class="form-select" name="department_id">
+        <option value="">Select department</option>
+        {% for dept in departments %}
+          <option value="{{ dept.department_id }}">{{ dept.code }} · {{ dept.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Credit</label>
+      <input class="form-control" name="credit" value="3.0">
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" rows="3" name="description" placeholder="Short synopsis"></textarea>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save course</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

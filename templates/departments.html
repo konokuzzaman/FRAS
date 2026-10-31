@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h2 class="mb-1">Departments</h2>
+    <p class="text-muted mb-0">Structure the academic hierarchy.</p>
+  </div>
+  <a class="btn btn-modern primary" href="{{ url_for('department_add') }}">Add department</a>
+</div>
+<div class="data-card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Chair</th>
+        <th>Contact</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dept in departments %}
+        <tr>
+          <td>{{ dept.code }}</td>
+          <td>{{ dept.name }}</td>
+          <td>{{ dept.chair_name or '—' }}</td>
+          <td>{{ dept.contact_email or '—' }}</td>
+          <td class="text-end">
+            <a class="btn btn-sm btn-outline-light" href="{{ url_for('department_edit', dept_id=dept.department_id) }}">Edit</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No departments yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+

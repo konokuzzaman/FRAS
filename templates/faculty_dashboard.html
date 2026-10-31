@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="mb-4">
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p class="label">Assigned sections</p>
+      <p class="value">{{ summary.sections }}</p>
+      <p class="text-muted small">Ready for smart attendance</p>
+    </div>
+    <div class="stat-card">
+      <p class="label">Present today</p>
+      <p class="value">{{ summary.today_present }}</p>
+      <p class="text-muted small">Students captured across all sessions</p>
+    </div>
+  </div>
+</section>
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="data-card">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h3>Your sections</h3>
+          <p class="text-muted mb-0">Select a section and launch face recognition.</p>
+        </div>
+        <a class="btn btn-modern primary" href="{{ url_for('live_attendance') }}">Live attendance</a>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Semester</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sec in sections %}
+            <tr>
+              <td>{{ sec.course_code }} · {{ sec.course_name }}</td>
+              <td>{{ sec.section_no }}</td>
+              <td>{{ sec.semester }} {{ sec.academic_year }}</td>
+            </tr>
+          {% else %}
+            <tr><td colspan="3" class="text-center text-muted py-4">No sections assigned yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card-hero">
+      <p class="text-muted text-uppercase small mb-2">Workflow tips</p>
+      <ul class="mb-3 text-white-50">
+        <li>Start a smart session before pointing the camera.</li>
+        <li>Use the manual override panel for corrections.</li>
+        <li>Watch for the neon overlay to confirm recognition.</li>
+      </ul>
+      <a class="btn btn-modern secondary w-100" href="{{ url_for('live_attendance') }}">Open Attendance Studio</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

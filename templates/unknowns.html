@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3">Unknown captures</h2>
+<div class="row g-3">
+  {% for face in unknowns %}
+    <div class="col-md-6 col-xl-4">
+      <div class="unknown-card h-100">
+        <p class="text-muted small mb-1">Captured {{ face.capture_time }}</p>
+        <p class="mb-2">Section: {{ face.course_code or 'N/A' }} · {{ face.section_no or '—' }}</p>
+        <p class="mb-2 text-break small">{{ face.storage_path }}</p>
+        <span class="pill warning">Unknown</span>
+      </div>
+    </div>
+  {% else %}
+    <div class="col-12 text-center text-muted py-5">No unknown faces detected recently.</div>
+  {% endfor %}
+</div>
+{% endblock %}

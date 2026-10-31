@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h2 class="mb-1">Sections</h2>
+    <p class="text-muted mb-0">Connect courses, faculty, and schedules.</p>
+  </div>
+  <a class="btn btn-modern primary" href="{{ url_for('section_add') }}">Add section</a>
+</div>
+<div class="data-card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Section</th>
+        <th>Semester</th>
+        <th>Faculty</th>
+        <th>Schedule</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sec in sections %}
+        <tr>
+          <td>{{ sec.course_code }} · {{ sec.course_name }}</td>
+          <td>{{ sec.section_no }}</td>
+          <td>{{ sec.semester }} {{ sec.academic_year }}</td>
+          <td>{{ sec.faculty_name or 'Unassigned' }}</td>
+          <td>{{ sec.schedule_info or '—' }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No sections yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

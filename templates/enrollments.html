@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h2 class="mb-1">Enrollments</h2>
+    <p class="text-muted mb-0">Track who belongs in each smart attendance session.</p>
+  </div>
+  <a class="btn btn-modern primary" href="{{ url_for('enrollment_add') }}">Add enrollment</a>
+</div>
+<div class="data-card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Roll</th>
+        <th>Course</th>
+        <th>Section</th>
+        <th>Faculty</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for enr in enrollments %}
+        <tr>
+          <td>{{ enr.name }}</td>
+          <td>{{ enr.roll }}</td>
+          <td>{{ enr.course_code }}</td>
+          <td>{{ enr.section_no }}</td>
+          <td>{{ enr.faculty_name or '—' }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No enrollments yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

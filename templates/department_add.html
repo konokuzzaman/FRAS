@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="data-card">
+  <h3 class="mb-4">Create department</h3>
+  <form method="post" class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label">Code</label>
+      <input class="form-control" name="code" required placeholder="CSE">
+    </div>
+    <div class="col-md-8">
+      <label class="form-label">Name</label>
+      <input class="form-control" name="name" required placeholder="Computer Science & Engineering">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Chair name</label>
+      <input class="form-control" name="chair_name">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Contact email</label>
+      <input type="email" class="form-control" name="contact_email">
+    </div>
+    <div class="col-12">
+      <button class="btn btn-modern primary">Save department</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+

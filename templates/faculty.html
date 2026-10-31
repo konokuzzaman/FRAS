@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h2 class="mb-1">Faculty roster</h2>
+    <p class="text-muted mb-0">Give educators access to live attendance.</p>
+  </div>
+  <a class="btn btn-modern primary" href="{{ url_for('faculty_add') }}">Add faculty</a>
+</div>
+<div class="data-card">
+  <table class="data-table align-middle">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fac in faculty %}
+        <tr>
+          <td>{{ fac.full_name }}</td>
+          <td>{{ fac.faculty_code }}</td>
+          <td>{{ fac.department_name or '—' }}</td>
+          <td>{{ fac.email }}</td>
+          <td><span class="pill {% if fac.status == 'active' %}success{% else %}warning{% endif %}">{{ fac.status }}</span></td>
+          <td class="text-end">
+            <a class="btn btn-sm btn-outline-light" href="{{ url_for('faculty_edit', faculty_id=fac.faculty_id) }}">Edit</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6" class="text-center text-muted py-4">No faculty members yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
